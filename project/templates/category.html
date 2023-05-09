@@ -1,13 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Page</title>
-</head>
-<body>
-    <h1>Category Page</h1>
+{% extends 'base.html' %}
+{% block head %}
+<title>Category </title>
+{% endblock head %}
+{% block categories %}
+<div class="container">
+    <div class="row my-5">
+    {% if categori.post.all %}
+    <h3 class="my-3"> Posts of {{categori|title}}</h3>
+    {% for blog in categori.post.all %}       
+            <div class="col-sm-4">
+                <div class="card">
+                    <img class="card-img-top" style="max-width: 350px; max-height:200px;" src="https://picsum.photos/200/200" alt="Title">
+                    <div class="card-body">
+                        <h4 class="card-title">{{blog.title|title }}</h4>
+                        <p class="card-text">{{blog.content|truncatechars:100 | safe}}</p>
+                        <a href="{% url 'singlePost' post.slug %}" class="btn btn-primary" target="_blank" 
+                        rel="noopener noreferrer">Read More...</a>
+                        
+                    </div>
+                    
+                </div>
+            </div>          
+    {% endfor %}
+    {% endif %}
+        
+    </div>
+
     
-</body>
-</html>
+
+</div>
+{% endblock categories %}

@@ -1,4 +1,7 @@
 {%extends 'base.html' %}
+{% block head %}
+<title>Home Page of my Website </title>
+{% endblock head %}
 {% block content %}
 {% for blog in BlogOject %}
     <div class="card mb-3">
@@ -9,10 +12,10 @@
             <div class="col-md-6">
             <div class="card-body">
                 <h5 class="card-title">{{blog.title}}</h5>
-                <p class="card-text">{{blog.content |truncatewords:15}}... <a class ='text-decoration-none' href="#">Read More</a></p>
+                <p class="card-text">{{blog.content |truncatewords:15}}... <a class ='text-decoration-none' href="{ % url 'post_deails' blog.slug% }">Read More</a></p>
                 <p class="card-text"><small class="text-muted">
                 Author : {{blog.category.author.name}} | 
-                Category : <a href="{% url 'category' blog.category.slug%}">{{blog.category.title}} |</a> 
+                Category : <a href="{% url 'category_deails' blog.category.slug%}">{{blog.category.title}} |</a> 
                 Updated : {{blog.published |timesince}}
                 </small></p>
             </div>

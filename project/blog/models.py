@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from django.utils.crypto import get_random_string
 
 # Create your models here.
 class Author(models.Model):
@@ -19,10 +20,13 @@ class Category(models.Model):
     def __str__(self):
         return self.title
     class Meta:
-        verbose_name_plural = "catogries"
+        verbose_name_plural = "Catogries"
 
     def save(self, *args, **kwargs):
-        self.slug =slugify(self.title)
+        if not self.slug:
+            self.slug =slugify(self.title)
+            while Category.objects.filter(slug =self.slug).exists():
+                self.slug = f'{slugify(self.title)}-{get_random_string(4)}'
         super().save(*args, **kwargs)
     
 
@@ -49,5 +53,9 @@ class Blog(models.Model):
         verbose_name_plural = "Blogs"
     
     def save(self, *args, **kwargs):
-        self.slug =slugify(self.title)
+        if not self.slug:
+            self.slug =slugify(self.title)
+            while Category.objects.filter(slug =self.slug).exists():
+                self.slug = f'{slugify(self.title)}-{get_random_string(4)}'
+        super().save(*args, **kwargs)
         super().save(*args, **kwargs)

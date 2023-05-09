@@ -5,7 +5,7 @@ from .models import Blog, Category
 def home(request):
     Bolg_object = Blog.objects.filter(post_status='publish')
     context = {'BlogOject': Bolg_object}
-    name = 'index.html'
+    name = 'home.html'
     return render (request, name, context)
 
 def category_deails(request, category_slug):
@@ -14,3 +14,7 @@ def category_deails(request, category_slug):
     name = 'category.html'
     context = {'posts':posts}
     return render (request, name, context)
+
+def post_deails(request):
+    # post_url =get_list_or_404(Blog, slug = post_slug, status ='publish')
+    return render (request, 'blog.html', {})
